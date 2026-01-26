@@ -1,0 +1,89 @@
+<!-- <div class="admin-medicines-container">
+  <h2>All Medicines</h2>
+
+  <div *ngIf="isLoading; else dataView">
+    <p>Loading medicines...</p>
+  </div>
+
+  <ng-template #dataView>
+    <div *ngIf="medicines.length > 0; else noData">
+      <table class="medicine-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let med of medicines">
+            <td>{{ med.name }}</td>
+            <td>{{ med.price | currency }}</td>
+            <td>{{ med.stock }}</td>
+            <td>
+              <button (click)="deleteMedicine(med._id)" class="delete-btn">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
+
+  <ng-template #noData>
+    <p>No medicines found. Try adding some from the Dashboard.</p>
+  </ng-template>
+</div> -->
+<div class="admin-page-wrapper">
+  <div class="admin-medicines-container">
+    <div class="header-section">
+      <span class="section-tag">Inventory Management</span>
+      <h2>All Medicines</h2>
+      <p class="subtitle">Review and manage your current stock levels.</p>
+    </div>
+
+    <div *ngIf="isLoading; else dataView" class="loading-state">
+      <div class="spinner"></div>
+      <p>Fetching inventory...</p>
+    </div>
+
+    <ng-template #dataView>
+      <div *ngIf="medicines.length > 0; else noData" class="table-card">
+        <table class="medicine-table">
+          <thead>
+            <tr>
+              <th>Medicine Name</th>
+              <th>Price</th>
+              <th>Stock Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let med of medicines">
+              <td class="med-name">{{ med.name }}</td>
+              <td class="med-price">{{ med.price | currency:'INR' }}</td>
+              <td>
+                <span class="status-chip" [class.out]="med.stock === 'Out of Stock'">
+                  {{ med.stock }}
+                </span>
+              </td>
+              <td>
+                <button (click)="deleteMedicine(med._id)" class="delete-btn">
+                  <span class="btn-icon">🗑️</span> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
+
+    <ng-template #noData>
+      <div class="empty-state">
+        <div class="empty-icon">📦</div>
+        <p>No medicines found. Try adding some from the Dashboard.</p>
+        <a routerLink="/admin/add-medicine" class="add-link">Go to Add Medicine</a>
+      </div>
+    </ng-template>
+  </div>
+</div>

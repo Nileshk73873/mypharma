@@ -1,0 +1,181 @@
+/* .medicine-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.medicine-table th, 
+.medicine-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.medicine-table th {
+  background: #2e7d32;
+  color: white;
+}
+
+.delete-btn {
+  background: #d32f2f; /* A slightly deeper red 
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.delete-btn:hover {
+  background: #b71c1c;
+} */
+
+/* --- ✨ PAGE LAYOUT --- */
+.admin-page-wrapper {
+  background-color: #fcfdfc;
+  min-height: 90vh;
+  padding: 60px 20px;
+}
+
+.admin-medicines-container {
+  max-width: 1000px;
+  margin: auto;
+  animation: fadeInUp 0.8s ease-out; /* Match global animation */
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-tag {
+  color: #2e7d32; /* Brand Green */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
+  display: block;
+}
+
+.admin-medicines-container h2 {
+  font-size: 36px;
+  color: #1b5e20;
+  margin: 10px 0;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 15px;
+}
+
+/* --- ✨ TABLE CARD --- */
+.table-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Soft shadow */
+  border: 1px solid rgba(46, 125, 50, 0.1);
+}
+
+.medicine-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.medicine-table th {
+  background: #f1f8e9; /* Light green header */
+  color: #1b5e20;
+  padding: 20px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.medicine-table td {
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #444;
+  font-size: 15px;
+}
+
+.medicine-table tr:last-child td {
+  border-bottom: none;
+}
+
+.medicine-table tr:hover {
+  background-color: #fcfdfc; /* Subtle row highlight */
+}
+
+/* --- ✨ ROW CONTENT STYLES --- */
+.med-name {
+  font-weight: 600;
+  color: #1b5e20;
+}
+
+.med-price {
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+.status-chip {
+  padding: 6px 14px;
+  background: #e8f5e9;
+  color: #2e7d32; /* Brand Green */
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-chip.out {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+/* --- ✨ ACTIONS --- */
+.delete-btn {
+  background: white;
+  color: #d32f2f;
+  border: 1.5px solid #d32f2f;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.3s;
+}
+
+.delete-btn:hover {
+  background: #d32f2f;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
+}
+
+/* --- ✨ EMPTY & LOADING STATES --- */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 20px;
+}
+
+.empty-icon { font-size: 50px; margin-bottom: 15px; }
+
+.add-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #2e7d32;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* --- ✨ KEYFRAMES --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

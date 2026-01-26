@@ -1,0 +1,40 @@
+<div class="admin-orders-container">
+  <h2>Customer Orders</h2>
+
+  <div *ngIf="isLoading; else tableView">
+    <p>Loading orders...</p>
+  </div>
+
+  <ng-template #tableView>
+    <div *ngIf="orders.length > 0; else noOrders">
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Items Purchased</th>
+            <th>Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>#{{ order._id.slice(-6) }}</td>
+            <td>{{ order.createdAt | date:'medium' }}</td>
+            <td>
+              <ul class="item-list">
+                <li *ngFor="let item of order.items">
+                  {{ item.name }} (x{{ item.quantity || 1 }})
+                </li>
+              </ul>
+            </td>
+            <td class="price-cell">{{ order.total | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
+
+  <ng-template #noOrders>
+    <p>No orders found in the system.</p>
+  </ng-template>
+</div>

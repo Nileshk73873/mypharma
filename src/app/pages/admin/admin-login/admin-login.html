@@ -1,0 +1,54 @@
+<!-- <h2 class="page-title">Admin Login</h2>
+
+<div class="admin-login-box">
+  <input
+    type="text"
+    placeholder="Username"
+    [(ngModel)]="username"
+  />
+
+  <input
+    type="password"
+    placeholder="Password"
+    [(ngModel)]="password"
+  />
+
+  <button (click)="login()">Login</button>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+</div> -->
+<div class="admin-login-wrapper">
+  <div class="admin-login-card">
+    <div class="admin-header">
+      <div class="admin-icon">🔐</div>
+      <h2 class="page-title">Admin Portal</h2>
+      <p class="admin-subtitle">Please sign in to access management tools</p>
+    </div>
+
+    <div class="admin-login-box">
+      <div class="input-group">
+        <label>Username</label>
+        <input
+          type="text"
+          placeholder="Enter admin username"
+          [(ngModel)]="username"
+        />
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input
+          type="password"
+          placeholder="••••••••"
+          [(ngModel)]="password"
+        />
+      </div>
+
+      <button (click)="login()" class="login-btn">
+        Access Dashboard
+      </button>
+
+      <p class="error" *ngIf="error">⚠️ {{ error }}</p>
+    </div>
+  </div>
+</div>

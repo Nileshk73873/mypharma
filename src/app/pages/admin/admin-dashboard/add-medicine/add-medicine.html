@@ -1,0 +1,78 @@
+<!-- <form (ngSubmit)="addMedicine()">
+
+  <input
+    type="text"
+    placeholder="Medicine Name"
+    [(ngModel)]="medicine.name"
+    name="name"
+    required
+  />
+
+  <input
+    type="number"
+    placeholder="Price"
+    [(ngModel)]="medicine.price"
+    name="price"
+    required
+  />
+
+  <select
+    [(ngModel)]="medicine.stock"
+    name="stock"
+  >
+    <option value="In Stock">In Stock</option>
+    <option value="Out of Stock">Out of Stock</option>
+  </select>
+
+   IMPORTANT 
+  <button type="submit">
+    Add Medicine
+  </button>
+
+</form> -->
+<div class="form-page-wrapper">
+  <div class="form-card">
+    <div class="form-header">
+      <div class="form-icon">➕</div>
+      <h2>Add New Medicine</h2>
+      <p>Fill in the details to update your inventory</p>
+    </div>
+
+    <form (ngSubmit)="addMedicine()" class="modern-form">
+      <div class="input-group">
+        <label>Medicine Name</label>
+        <input
+          type="text"
+          placeholder="e.g. Paracetamol"
+          [(ngModel)]="medicine.name"
+          name="name"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <label>Price (₹)</label>
+        <input
+          type="number"
+          placeholder="0.00"
+          [(ngModel)]="medicine.price"
+          name="price"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <label>Stock Status</label>
+        <select [(ngModel)]="medicine.stock" name="stock">
+          <option value="In Stock">✅ In Stock</option>
+          <option value="Out of Stock">❌ Out of Stock</option>
+        </select>
+      </div>
+
+      <button type="submit" class="submit-btn">
+        <span class="btn-text">Add to Inventory</span>
+      </button>
+
+<a routerLink="/admin/dashboard" class="back-link">← Back to Dashboard</a></form>
+  </div>
+</div>

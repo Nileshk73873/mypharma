@@ -1,0 +1,142 @@
+/* .admin-login-box {
+  max-width: 350px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+} */
+/* --- ✨ CENTERED WRAPPER --- */
+.admin-login-wrapper {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fcfdfc;
+  padding: 20px;
+}
+
+/* --- ✨ LOGIN CARD --- */
+.admin-login-card {
+  background: white;
+  width: 100%;
+  max-width: 400px;
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(46, 125, 50, 0.05); /* Green-tinted shadow */
+  border: 1px solid rgba(46, 125, 50, 0.1);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.admin-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.admin-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.page-title {
+  color: #1b5e20; /* Dark brand green */
+  font-size: 28px;
+  margin: 0;
+  font-weight: 800;
+}
+
+.admin-subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* --- ✨ BOX & INPUTS --- */
+.admin-login-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2e7d32;
+  margin-left: 2px;
+}
+
+input {
+  padding: 14px 16px;
+  font-size: 15px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 12px;
+  transition: 0.3s;
+  background-color: #fafafa;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2e7d32; /* Brand green */
+  background-color: white;
+  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1);
+}
+
+/* --- ✨ BUTTON --- */
+.login-btn {
+  padding: 15px;
+  background-color: #2e7d32; /* Primary brand green */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.login-btn:hover {
+  background-color: #1b5e20;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.2);
+}
+
+/* --- ✨ ERROR MESSAGE --- */
+.error {
+  color: #d32f2f;
+  background-color: #ffebee;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* --- ✨ ANIMATION --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

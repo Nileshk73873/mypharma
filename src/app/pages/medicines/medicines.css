@@ -1,0 +1,224 @@
+/* .page-title {
+  text-align: center;
+  margin: 30px 0;
+  color: #2e7d32;
+}
+
+.medicine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 0 40px;
+}
+
+.medicine-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  background-color: #fafafa;
+}
+
+.medicine-card h3 {
+  margin-bottom: 10px;
+}
+
+.medicine-card p {
+  margin: 5px 0;
+}
+
+.stock {
+  color: green;
+  font-weight: bold;
+}
+
+.stock.out {
+  color: red;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #256628;
+}
+
+button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+ */
+/* --- ✨ PAGE LAYOUT --- */
+.medicines-wrapper {
+  padding: 60px 20px;
+  background-color: #fcfdfc;
+  min-height: 100vh;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.section-tag {
+  color: #2e7d32;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.page-title {
+  font-size: 42px;
+  color: #1b5e20; /* Brand green from hero section */
+  margin: 0 0 10px;
+}
+
+.section-subtitle {
+  color: #666;
+  font-size: 16px;
+}
+
+/* --- ✨ MEDICINE GRID --- */
+.medicine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- ✨ PREMIUM MEDICINE CARDS --- */
+.medicine-card {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.medicine-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(46, 125, 50, 0.1);
+  border-color: #a5d6a7;
+}
+
+.med-icon-box {
+  width: 70px;
+  height: 70px;
+  background: #f1f8e9;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  transition: 0.3s;
+}
+
+.medicine-card:hover .med-icon-box {
+  background: #2e7d32;
+  transform: scale(1.1) rotate(10deg);
+}
+
+.med-icon {
+  font-size: 30px;
+}
+
+.medicine-card:hover .med-icon {
+  filter: brightness(1) invert(1);
+}
+
+.medicine-card h3 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.price-tag {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2e7d32;
+  margin-bottom: 15px;
+}
+
+/* --- ✨ STOCK BADGE --- */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.status-badge .dot {
+  height: 8px;
+  width: 8px;
+  background-color: #2e7d32;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.status-badge.out {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-badge.out .dot {
+  background-color: #c62828;
+}
+
+/* --- ✨ BUTTON STYLES --- */
+.add-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.add-btn:hover:not(:disabled) {
+  background-color: #1b5e20;
+  box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+}
+
+.add-btn:disabled {
+  background-color: #e0e0e0;
+  color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+/* --- ✨ ANIMATIONS --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

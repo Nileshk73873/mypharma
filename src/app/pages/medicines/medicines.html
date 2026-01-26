@@ -1,0 +1,50 @@
+<!-- <h2 class="page-title">Available Medicines</h2>
+
+<div class="medicine-grid">
+  <div class="medicine-card" *ngFor="let med of medicines">
+    <h3>{{ med.name }}</h3>
+    <p>Price: ₹{{ med.price }}</p>
+    <p class="stock" [class.out]="med.stock === 'Out of Stock'">
+      {{ med.stock }}
+    </p>
+    <button
+  [disabled]="med.stock === 'Out of Stock'"
+  (click)="addToCart(med)">
+  Add to Cart
+</button>
+
+  </div>
+</div> -->
+<div class="medicines-wrapper">
+  <div class="section-header">
+    <span class="section-tag">Pharmacy</span>
+    <h2 class="page-title">Available Medicines</h2>
+    <p class="section-subtitle">Browse our wide range of 100% genuine healthcare products.</p>
+  </div>
+
+  <div class="medicine-grid">
+    <div class="medicine-card" *ngFor="let med of medicines">
+      <div class="med-icon-box">
+        <span class="med-icon">💊</span>
+      </div>
+
+      <div class="med-info">
+        <h3>{{ med.name }}</h3>
+        <p class="price-tag">₹{{ med.price }}</p>
+        
+        <div class="status-badge" [class.out]="med.stock === 'Out of Stock'">
+          <span class="dot"></span>
+          {{ med.stock }}
+        </div>
+
+        <button
+          class="add-btn"
+          [disabled]="med.stock === 'Out of Stock'"
+          (click)="addToCart(med)">
+          <span class="btn-text">Add to Cart</span>
+          <span class="btn-icon">+</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

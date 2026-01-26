@@ -1,0 +1,45 @@
+<nav class="navbar">
+  <div class="logo">MyPharma</div>
+
+  <div class="nav-links">
+    <a routerLink="/">Home</a>
+    <a routerLink="/medicines">Medicines</a>
+    <a routerLink="/login">Login</a>
+    <a routerLink="/cart">
+  Cart <span *ngIf="cartCount > 0">({{ cartCount }})</span>
+</a>
+
+  </div>
+</nav>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <h3>MyPharma</h3>
+      <p>Your trusted digital healthcare partner. Providing genuine medicines with speed and care.</p>
+    </div>
+
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/medicines">Medicines</a></li>
+        <li><a routerLink="/login">Login</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Support</h4>
+      <p>Email: support@mypharma.com</p>
+      <p>Phone: +91 93709 53319</p>
+      <p>Address: Borivali, India</p>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>&copy; 2026 MyPharma. All rights reserved.</p>
+  </div>
+</footer>
