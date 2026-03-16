@@ -7,7 +7,10 @@ Built as a **DBMS Course Project** using the MEAN stack with MySQL.
 
 ## 👥 Team Members
 
-> Add your team member names here
+> Nileshkumar Kori
+> Varad Jadhav
+> Palak Rathod
+> Suresh Chaudhary
 
 ---
 
