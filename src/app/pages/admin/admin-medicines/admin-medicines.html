@@ -1,89 +1,83 @@
-<!-- <div class="admin-medicines-container">
-  <h2>All Medicines</h2>
+<div class="admin-medicines">
 
-  <div *ngIf="isLoading; else dataView">
-    <p>Loading medicines...</p>
+  <div class="page-header">
+    <h1>Manage Medicines</h1>
+    <a routerLink="/admin/add-medicine" class="add-btn">+ Add Medicine</a>
+    <a routerLink="/admin/dashboard" class="back-link">← Back to Dashboard</a>
   </div>
 
-  <ng-template #dataView>
-    <div *ngIf="medicines.length > 0; else noData">
-      <table class="medicine-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let med of medicines">
-            <td>{{ med.name }}</td>
-            <td>{{ med.price | currency }}</td>
-            <td>{{ med.stock }}</td>
-            <td>
-              <button (click)="deleteMedicine(med._id)" class="delete-btn">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </ng-template>
+  <!-- Loading -->
+  <div class="loading" *ngIf="isLoading">Loading medicines...</div>
 
-  <ng-template #noData>
-    <p>No medicines found. Try adding some from the Dashboard.</p>
-  </ng-template>
-</div> -->
-<div class="admin-page-wrapper">
-  <div class="admin-medicines-container">
-    <div class="header-section">
-      <span class="section-tag">Inventory Management</span>
-      <h2>All Medicines</h2>
-      <p class="subtitle">Review and manage your current stock levels.</p>
-    </div>
-
-    <div *ngIf="isLoading; else dataView" class="loading-state">
-      <div class="spinner"></div>
-      <p>Fetching inventory...</p>
-    </div>
-
-    <ng-template #dataView>
-      <div *ngIf="medicines.length > 0; else noData" class="table-card">
-        <table class="medicine-table">
-          <thead>
-            <tr>
-              <th>Medicine Name</th>
-              <th>Price</th>
-              <th>Stock Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let med of medicines">
-              <td class="med-name">{{ med.name }}</td>
-              <td class="med-price">{{ med.price | currency:'INR' }}</td>
-              <td>
-                <span class="status-chip" [class.out]="med.stock === 'Out of Stock'">
-                  {{ med.stock }}
-                </span>
-              </td>
-              <td>
-                <button (click)="deleteMedicine(med._id)" class="delete-btn">
-                  <span class="btn-icon">🗑️</span> Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </ng-template>
-
-    <ng-template #noData>
-      <div class="empty-state">
-        <div class="empty-icon">📦</div>
-        <p>No medicines found. Try adding some from the Dashboard.</p>
-        <a routerLink="/admin/add-medicine" class="add-link">Go to Add Medicine</a>
-      </div>
-    </ng-template>
+  <!-- Table -->
+  <div class="table-wrap" *ngIf="!isLoading">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Expiry</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let med of medicines"
+            [class.low-stock]="med.stock < 10">
+          <td>{{ med.name }}</td>
+          <td>{{ med.category }}</td>
+          <td>₹{{ med.price }}</td>
+          <td>
+            <span [class.warning]="med.stock < 10">
+              {{ med.stock < 10 ? '⚠️ ' : '' }}{{ med.stock }}
+            </span>
+          </td>
+          <td>{{ med.expiry_date | date:'dd MMM yyyy' }}</td>
+          <td class="actions">
+            <button class="edit-btn"   (click)="openEdit(med)">Edit</button>
+            <button class="delete-btn" (click)="deleteMedicine(med.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
+  <!-- Edit Modal -->
+  <div class="modal-overlay" *ngIf="editMode">
+    <div class="modal">
+      <h2>Edit Medicine</h2>
+
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" [(ngModel)]="selectedMed.name" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <input type="text" [(ngModel)]="selectedMed.category" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label>Price</label>
+        <input type="number" [(ngModel)]="selectedMed.price" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label>Stock</label>
+        <input type="number" [(ngModel)]="selectedMed.stock" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label>Expiry Date</label>
+        <input type="date" [(ngModel)]="selectedMed.expiry_date" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" [(ngModel)]="selectedMed.description" class="form-input" />
+      </div>
+
+      <div class="modal-actions">
+        <button class="save-btn"   (click)="saveEdit()">Save</button>
+        <button class="cancel-btn" (click)="closeEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
 </div>

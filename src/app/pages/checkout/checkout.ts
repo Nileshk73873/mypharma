@@ -1,63 +1,95 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CartService } from '../../services/cart';
 import { Router } from '@angular/router';
+import { MedicineService } from '../../services/medicine';
+import { AuthService } from '../../services/auth';
+import { CartService } from '../../services/cart';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './checkout.html',
-  styleUrls: ['./checkout.css']
+  styleUrl: './checkout.css'
 })
 export class Checkout implements OnInit {
-  cartItems: any[] = [];
-  totalAmount = 0;
 
-  // This object stores the input values
+  cartItems: any[] = [];
+  isPlacing        = false;
+  message          = '';
+  totalAmount      = 0;
+
   customer = {
     fullName: '',
-    mobile: '',
-    address: '',
-    city: '',
-    pincode: ''
+    mobile:   '',
+    address:  '',
+    city:     '',
+    pincode:  ''
   };
 
   constructor(
-    private cartService: CartService, 
-    private router: Router, 
-    private cdr: ChangeDetectorRef
+    private medicineService: MedicineService,
+    private authService: AuthService,
+    private cartService: CartService,
+    private router: Router,
+    private cdr: ChangeDetectorRef    // ← ADD
   ) {}
 
   ngOnInit() {
-    this.cartService.getCartItems().subscribe({
-      next: (items) => {
-        this.cartItems = items;
-        this.calculateTotal();
-        this.cdr.detectChanges();
+    const user = this.authService.getUser();
+    if (!user) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    this.loadCart();
+  }
+
+  loadCart() {
+    const user = this.authService.getUser();
+    this.medicineService.getCart(user.id).subscribe({
+      next: (data: any) => {
+        this.cartItems   = data;
+        this.totalAmount = this.calculateTotal();
+        this.cdr.detectChanges();     // ← ADD
       },
-      error: (err) => console.error('Checkout error:', err)
+      error: (err: any) => console.error('Error loading cart', err)
     });
   }
 
-  calculateTotal() {
-    this.totalAmount = this.cartItems.reduce((sum, item) => sum + item.price, 0);
+  calculateTotal(): number {
+    return this.cartItems.reduce(
+      (sum, item) => sum + (item.price * item.quantity), 0
+    );
   }
 
   placeOrder() {
-    const orderData = {
-      customer: this.customer, // Includes the filled form details
-      items: this.cartItems,
-      total: this.totalAmount,
-      createdAt: new Date()
-    };
+    const user = this.authService.getUser();
 
-    this.cartService.placeOrder(orderData).subscribe(() => {
-      // Clear the cart globally so the Navbar updates to (0)
-      this.cartService.clearCart().subscribe(() => {
+    if (this.cartItems.length === 0) {
+      this.message = 'Your cart is empty!';
+      return;
+    }
+
+    this.isPlacing = true;
+
+    const items = this.cartItems.map(item => ({
+      medicine_id:   item.medicine_id,
+      quantity:      item.quantity,
+      price_at_time: item.price
+    }));
+
+    this.medicineService.placeOrder(user.id, items, this.totalAmount).subscribe({
+      next: () => {
+        this.cartService.refreshCount();
         this.router.navigate(['/order-success']);
-      });
+      },
+      error: (err: any) => {
+        console.error('Error placing order', err);
+        this.message  = 'Failed to place order. Please try again.';
+        this.isPlacing = false;
+        this.cdr.detectChanges();
+      }
     });
   }
 }

@@ -1,62 +1,74 @@
-<!-- <div class="admin-dashboard">
-  <h1>Admin Dashboard</h1>
+<div class="dashboard">
 
-  <div class="stats">
-    <div class="stat-card">
-      <h3>Total Medicines</h3>
-      <p>{{ totalMedicines }}</p>
-    </div>
-
-    <div class="stat-card">
-      <h3>Total Orders</h3>
-      <p>{{ totalOrders }}</p>
-    </div>
+  <!-- Header -->
+  <div class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome back! Here's what's happening.</p>
+    <button class="logout-btn" (click)="logout()">Logout</button>
   </div>
 
-  <div class="admin-actions">
-    <a routerLink="/admin/add-medicine">➕ Add Medicine</a>
-    <a routerLink="/admin/medicines">🗑 Manage Medicines</a>
-    <a routerLink="/admin/orders" class="btn">📦 View Orders</a>
-    <button (click)="logout()">🚪 Logout</button>
-  </div>
-</div> -->
-<div class="dashboard-wrapper">
-  <div class="admin-dashboard">
-    <div class="dashboard-header">
-      <span class="section-tag">Management</span>
-      <h1>Admin Dashboard</h1>
-      <p class="subtitle">Welcome back! Here is your business overview for today.</p>
-    </div>
+  <!-- Stats Cards -->
+  <div class="stats-grid">
 
-    <div class="stats">
-      <div class="stat-card">
-        <div class="stat-icon">💊</div>
-        <h3>Total Medicines</h3>
-        <p class="count">{{ totalMedicines }}</p>
-        <div class="card-progress"></div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-icon">📦</div>
-        <h3>Total Orders</h3>
-        <p class="count">{{ totalOrders }}</p>
-        <div class="card-progress"></div>
+    <div class="stat-card green">
+      <div class="stat-icon">💊</div>
+      <div class="stat-info">
+        <h3>{{ totalMedicines }}</h3>
+        <p>Total Medicines</p>
       </div>
     </div>
 
-    <div class="admin-actions">
-      <a routerLink="/admin/add-medicine" class="action-btn">
-        <span class="icon">➕</span> Add Medicine
+    <div class="stat-card blue">
+      <div class="stat-icon">📦</div>
+      <div class="stat-info">
+        <h3>{{ totalOrders }}</h3>
+        <p>Total Orders</p>
+      </div>
+    </div>
+
+    <div class="stat-card orange">
+      <div class="stat-icon">⏳</div>
+      <div class="stat-info">
+        <h3>{{ pendingOrders }}</h3>
+        <p>Pending Orders</p>
+      </div>
+    </div>
+
+    <div class="stat-card red">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-info">
+        <h3>{{ lowStock }}</h3>
+        <p>Low Stock Items</p>
+      </div>
+    </div>
+
+    <div class="stat-card purple">
+      <div class="stat-icon">💰</div>
+      <div class="stat-info">
+        <h3>₹{{ revenue }}</h3>
+        <p>Total Revenue</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Quick Links -->
+  <div class="quick-links">
+    <h2>Quick Actions</h2>
+    <div class="links-grid">
+      <a routerLink="/admin/medicines" class="link-card">
+        <span>💊</span>
+        <p>Manage Medicines</p>
       </a>
-      <a routerLink="/admin/medicines" class="action-btn">
-        <span class="icon">⚙️</span> Manage Medicines
+      <a routerLink="/admin/orders" class="link-card">
+        <span>📦</span>
+        <p>Manage Orders</p>
       </a>
-      <a routerLink="/admin/orders" class="action-btn">
-        <span class="icon">📦</span> View Orders
+      <a routerLink="/admin/add-medicine" class="link-card">
+        <span>➕</span>
+        <p>Add Medicine</p>
       </a>
-      <button (click)="logout()" class="action-btn logout">
-        <span class="icon">🚪</span> Logout
-      </button>
     </div>
   </div>
+
 </div>

@@ -1,135 +1,126 @@
-/* form {
-  max-width: 400px;
-}
-
-input, select, button {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-} */
-/* --- ✨ CENTERED PAGE WRAPPER --- */
-.form-page-wrapper {
-  background-color: #fcfdfc;
-  min-height: 85vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.add-medicine-page {
+  max-width: 600px;
+  margin: 0 auto;
   padding: 40px 20px;
 }
 
-/* --- ✨ THE FORM CARD --- */
 .form-card {
   background: white;
-  width: 100%;
-  max-width: 450px;
+  border-radius: 16px;
   padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05); /* Match checkout card shadow */
-  border: 1px solid rgba(46, 125, 50, 0.1);
-  animation: fadeInUp 0.8s ease-out; /* Match global branding */
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
 }
 
 .form-header {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 30px;
 }
 
-.form-icon {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
-.form-header h2 {
-  color: #1b5e20; /* Dark brand green */
-  font-size: 28px;
-  margin: 0;
-}
-
-.form-header p {
-  color: #666;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-/* --- ✨ INPUT STYLING --- */
-.modern-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.input-group label {
-  font-size: 13px;
-  font-weight: 700;
-  color: #2e7d32; /* Brand green */
-  margin-left: 2px;
-}
-
-input, select {
-  padding: 12px 16px;
-  font-size: 15px;
-  border: 1.5px solid #e0e0e0;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  background-color: #fafafa;
-  width: 100%;
-  box-sizing: border-box; /* Ensures padding doesn't break width */
-}
-
-input:focus, select:focus {
-  outline: none;
-  border-color: #2e7d32;
-  background-color: white;
-  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1); /* Soft green glow */
-}
-
-/* --- ✨ SUBMIT BUTTON --- */
-.submit-btn {
-  margin-top: 10px;
-  padding: 16px;
-  background-color: #2e7d32;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.submit-btn:hover {
-  background-color: #1b5e20;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.2);
-}
-
-.submit-btn:active {
-  transform: translateY(0);
-}
+.form-header h2 { font-size: 24px; color: #1b5e20; }
 
 .back-link {
-  text-align: center;
-  display: block;
-  margin-top: 20px;
-  color: #2e7d32; /* Brand Green */
+  color: #2e7d32;
   text-decoration: none;
   font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
+  font-size: 14px;
 }
 
-.back-link:hover {
-  color: #1b5e20;
-  text-decoration: underline;
+.success-msg {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-weight: 500;
 }
-/* --- ✨ ANIMATION --- */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+
+.error-msg {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.form-group { margin-bottom: 18px; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #2e7d32;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.submit-btn {
+  flex: 1;
+  padding: 13px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) { background: #1b5e20; }
+.submit-btn:disabled { background: #a5d6a7; cursor: not-allowed; }
+
+.view-btn {
+  flex: 1;
+  padding: 13px;
+  background: #f5f5f5;
+  color: #333;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.back-btn-bottom {
+  flex: 1;
+  padding: 13px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.back-btn-bottom:hover {
+  background: #c8e6c9;
 }

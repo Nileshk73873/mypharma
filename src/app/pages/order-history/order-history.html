@@ -1,0 +1,52 @@
+<div class="order-history-page">
+
+  <div class="page-header">
+    <h1>My Orders</h1>
+    <p>Track all your past orders</p>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="isLoading">
+    <p>Loading your orders...</p>
+  </div>
+
+  <!-- Empty -->
+  <div class="empty" *ngIf="!isLoading && groupedOrders.length === 0">
+    <p>🛒 You haven't placed any orders yet.</p>
+    <a routerLink="/medicines" class="shop-btn">Shop Now</a>
+  </div>
+
+  <!-- Orders List -->
+  <div class="orders-list" *ngIf="!isLoading && groupedOrders.length > 0">
+    <div class="order-card" *ngFor="let order of groupedOrders">
+
+      <!-- Order Header -->
+      <div class="order-header">
+        <div class="order-info">
+          <span class="order-id">Order #{{ order.order_id }}</span>
+          <span class="order-date">{{ order.created_at | date:'dd MMM yyyy, hh:mm a' }}</span>
+        </div>
+        <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+          {{ order.status }}
+        </span>
+      </div>
+
+      <!-- Order Items -->
+      <div class="order-items">
+        <div class="order-item" *ngFor="let item of order.items">
+          <span class="item-name">💊 {{ item.medicine }}</span>
+          <span class="item-qty">x{{ item.quantity }}</span>
+          <span class="item-price">₹{{ item.price_at_time * item.quantity }}</span>
+        </div>
+      </div>
+
+      <!-- Order Footer -->
+      <div class="order-footer">
+        <span class="total-label">Total Amount</span>
+        <span class="total-amount">₹{{ order.total_amount }}</span>
+      </div>
+
+    </div>
+  </div>
+
+</div>

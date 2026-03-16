@@ -1,40 +1,48 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { MedicineService } from '../../../services/medicine';
 
 @Component({
   selector: 'app-admin-orders',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './admin-orders.html',
-  styleUrls: ['./admin-orders.css']
+  styleUrl: './admin-orders.css'
 })
-export class AdminOrders implements OnInit {
+export class AdminOrdersComponent implements OnInit {
+
   orders: any[] = [];
-  isLoading: boolean = false;
+  isLoading     = true;
 
   constructor(
     private medicineService: MedicineService,
     private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    this.fetchOrders();
-  }
+  ngOnInit() { this.loadOrders(); }
 
-  fetchOrders(): void {
+  loadOrders() {
     this.isLoading = true;
-    this.medicineService.getOrders().subscribe({
-      next: (data) => {
-        this.orders = data;
+    this.medicineService.getAllOrders().subscribe({
+      next: (data: any) => {
+        this.orders    = data;
         this.isLoading = false;
-        this.cdr.detectChanges(); // Ensures the table renders immediately
+        this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error('Failed to load orders:', err);
+      error: (err: any) => {
+        console.error(err);
         this.isLoading = false;
         this.cdr.detectChanges();
       }
+    });
+  }
+
+  updateStatus(orderId: number, status: string) {
+    this.medicineService.updateOrderStatus(orderId, status).subscribe({
+      next: () => this.loadOrders(),
+      error: (err: any) => console.error(err)
     });
   }
 }

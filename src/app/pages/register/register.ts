@@ -5,16 +5,18 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  templateUrl: './login.html',
-  styleUrl: './login.css'
+  templateUrl: './register.html',
+  styleUrl: './register.css'
 })
-export class Login {
+export class RegisterComponent {
 
+  name     = '';
   email    = '';
   password = '';
+  contact  = '';
   message  = '';
   isLoading = false;
   showPassword = false;   // ← ADD
@@ -24,28 +26,26 @@ export class Login {
     private router: Router
   ) {}
 
-  login() {
-    if (!this.email || !this.password) {
-      this.message = 'Please enter email and password';
+  register() {
+    if (!this.name || !this.email || !this.password) {
+      this.message = 'Name, email and password are required';
       return;
     }
 
     this.isLoading = true;
     this.message   = '';
 
-    this.authService.login({ email: this.email, password: this.password }).subscribe({
-      next: (res: any) => {
-        this.authService.saveUser(res.user);
-
-        // Redirect based on role
-        if (res.user.role === 'admin') {
-          this.router.navigate(['/admin/dashboard']);
-        } else {
-          this.router.navigate(['/medicines']);
-        }
+    this.authService.register({
+      name:     this.name,
+      email:    this.email,
+      password: this.password,
+      contact:  this.contact
+    }).subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
       },
       error: (err: any) => {
-        this.message  = err.error?.message || 'Login failed. Please try again.';
+        this.message   = err.error?.message || 'Registration failed. Try again.';
         this.isLoading = false;
       }
     });

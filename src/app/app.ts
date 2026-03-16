@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CartService } from './services/cart';
+import { AuthService } from './services/auth';
 
 @Component({
   selector: 'app-root',
@@ -11,22 +12,35 @@ import { CartService } from './services/cart';
   styleUrls: ['./app.css']
 })
 export class App implements OnInit {
-  cartCount = 0;
+
+  cartCount  = 0;
+  isLoggedIn = false;
 
   constructor(
     private cartService: CartService,
-    private cdr: ChangeDetectorRef // Forces UI refresh for async data
+    private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    // 🔔 Listen for cart updates from the service
-    // This replaces your manual 'window.addEventListener'
-    this.cartService.cartCount$.subscribe({
-      next: (count) => {
-        this.cartCount = count;
-        this.cdr.detectChanges(); // 🚀 Ensures "Cart (3)" updates on screen immediately
-      },
-      error: (err) => console.error('Navbar subscription error:', err)
+    // ← Listen to login/logout events
+    this.authService.loggedIn$.subscribe((status: boolean) => {
+      this.isLoggedIn = status;
+      this.cdr.detectChanges();
     });
+
+    // ← Listen to cart count changes
+    this.cartService.cartCount$.subscribe((count: number) => {
+      this.cartCount  = count;
+      this.isLoggedIn = this.authService.isLoggedIn();
+      this.cdr.detectChanges();
+    });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.cartService.refreshCount();
+    this.router.navigate(['/login']);
   }
 }

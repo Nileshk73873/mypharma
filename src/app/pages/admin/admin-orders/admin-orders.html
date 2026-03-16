@@ -1,40 +1,57 @@
-<div class="admin-orders-container">
-  <h2>Customer Orders</h2>
+<div class="admin-orders">
 
-  <div *ngIf="isLoading; else tableView">
-    <p>Loading orders...</p>
+  <div class="page-header">
+    <h1>Manage Orders</h1>
+    <a routerLink="/admin/dashboard" class="back-btn">← Dashboard</a>
   </div>
 
-  <ng-template #tableView>
-    <div *ngIf="orders.length > 0; else noOrders">
-      <table class="orders-table">
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Date</th>
-            <th>Items Purchased</th>
-            <th>Total Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let order of orders">
-            <td>#{{ order._id.slice(-6) }}</td>
-            <td>{{ order.createdAt | date:'medium' }}</td>
-            <td>
-              <ul class="item-list">
-                <li *ngFor="let item of order.items">
-                  {{ item.name }} (x{{ item.quantity || 1 }})
-                </li>
-              </ul>
-            </td>
-            <td class="price-cell">{{ order.total | currency }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </ng-template>
+  <div class="loading" *ngIf="isLoading">Loading orders...</div>
 
-  <ng-template #noOrders>
-    <p>No orders found in the system.</p>
-  </ng-template>
+  <div class="table-wrap" *ngIf="!isLoading">
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Email</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>#{{ order.id }}</td>
+          <td>{{ order.customer }}</td>
+          <td>{{ order.email }}</td>
+          <td>₹{{ order.total_amount }}</td>
+          <td>{{ order.created_at | date:'dd MMM yyyy' }}</td>
+          <td>
+            <span class="status-badge"
+  [ngClass]="{
+    'pending':    order.status === 'Pending',
+    'processing': order.status === 'Processing',
+    'delivered':  order.status === 'Delivered',
+    'cancelled':  order.status === 'Cancelled'
+  }">
+  {{ order.status }}
+</span>
+          </td>
+          <td>
+            <select
+  [(ngModel)]="order.status"
+  (change)="updateStatus(order.id, order.status)"
+  class="status-select">
+  <option>Pending</option>
+  <option>Processing</option>
+  <option>Delivered</option>
+  <option>Cancelled</option>
+</select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>

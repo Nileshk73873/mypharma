@@ -1,18 +1,11 @@
-<h2 class="success-title">🎉 Order Placed Successfully!</h2>
-
-@if (orderItems.length > 0) {
-  <h3>Order Summary</h3>
-
-  @for (item of orderItems; track $index) {
-    <div class="order-item">
-      <span>{{ item.name }}</span>
-      <span>₹{{ item.price }}</span>
+<div class="success-page">
+  <div class="success-card">
+    <div class="checkmark">✅</div>
+    <h1>Order Placed Successfully!</h1>
+    <p>Thank you for your order. Your medicines will be delivered soon.</p>
+    <div class="actions">
+      <a routerLink="/order-history" class="history-btn">View My Orders</a>
+      <a routerLink="/medicines"     class="shop-btn">Continue Shopping</a>
     </div>
-  }
-
-  <h3>Total Amount: ₹{{ total }}</h3>
-}
-
-<a routerLink="/medicines" class="back-btn">
-  Continue Shopping
-</a>
+  </div>
+</div>

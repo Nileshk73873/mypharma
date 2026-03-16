@@ -1,15 +1,16 @@
 <nav class="navbar">
   <div class="logo">MyPharma</div>
 
-  <div class="nav-links">
-    <a routerLink="/">Home</a>
-    <a routerLink="/medicines">Medicines</a>
-    <a routerLink="/login">Login</a>
-    <a routerLink="/cart">
-  Cart <span *ngIf="cartCount > 0">({{ cartCount }})</span>
-</a>
-
-  </div>
+<div class="nav-links">
+  <a routerLink="/">Home</a>
+  <a routerLink="/medicines">Medicines</a>
+  <a routerLink="/login" *ngIf="!isLoggedIn">Login</a>
+  <a routerLink="/order-history" *ngIf="isLoggedIn">My Orders</a>
+  <a routerLink="/cart">
+    Cart <span *ngIf="cartCount > 0">({{ cartCount }})</span>
+  </a>
+  <a routerLink="/login" (click)="logout()" *ngIf="isLoggedIn" class="logout-link">Logout</a>
+</div>
 </nav>
 
 <div class="content">
@@ -34,7 +35,7 @@
     <div class="footer-section">
       <h4>Support</h4>
       <p>Email: support@mypharma.com</p>
-      <p>Phone: +91 93709 53319</p>
+      <p>Phone: +91 8237384091</p>
       <p>Address: Borivali, India</p>
     </div>
   </div>

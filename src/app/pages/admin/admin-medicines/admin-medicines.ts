@@ -1,55 +1,72 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; // 👈 Add ChangeDetectorRef here
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { MedicineService } from '../../../services/medicine';
 
 @Component({
   selector: 'app-admin-medicines',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './admin-medicines.html',
-  styleUrls: ['./admin-medicines.css']
+  styleUrl: './admin-medicines.css'
 })
 export class AdminMedicinesComponent implements OnInit {
-  medicines: any[] = [];
-  isLoading: boolean = false;
 
-  // 👈 Inject cdr in the constructor
+  medicines: any[] = [];
+  isLoading        = true;
+  editMode         = false;
+  selectedMed: any = {};
+
   constructor(
     private medicineService: MedicineService,
-    private cdr: ChangeDetectorRef 
+    private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    this.loadMedicines();
-  }
+  ngOnInit() { this.loadMedicines(); }
 
-  loadMedicines(): void {
+  loadMedicines() {
     this.isLoading = true;
     this.medicineService.getMedicines().subscribe({
-      next: (data) => {
-        console.log('Medicines received by Admin:', data);
+      next: (data: any) => {
         this.medicines = data;
-        this.isLoading = false; 
-        
-        // 👈 Manually tell Angular to update the HTML table
-        this.cdr.detectChanges(); 
+        this.isLoading = false;
+        this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error('Fetch error:', err);
+      error: (err: any) => {
+        console.error(err);
         this.isLoading = false;
         this.cdr.detectChanges();
       }
     });
   }
 
-  deleteMedicine(id: string): void {
+  deleteMedicine(id: number) {
     if (confirm('Delete this medicine?')) {
       this.medicineService.deleteMedicine(id).subscribe({
-        next: () => {
-          this.loadMedicines(); // Refresh the list
-        },
-        error: (err) => console.error('Delete failed', err)
+        next: () => this.loadMedicines(),
+        error: (err: any) => console.error(err)
       });
     }
+  }
+
+  openEdit(med: any) {
+    this.selectedMed = { ...med };
+    this.editMode    = true;
+  }
+
+  closeEdit() {
+    this.editMode    = false;
+    this.selectedMed = {};
+  }
+
+  saveEdit() {
+    this.medicineService.updateMedicine(this.selectedMed.id, this.selectedMed).subscribe({
+      next: () => {
+        this.loadMedicines();
+        this.closeEdit();
+      },
+      error: (err: any) => console.error(err)
+    });
   }
 }

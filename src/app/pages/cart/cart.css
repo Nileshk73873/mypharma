@@ -1,31 +1,14 @@
-/* .cart-wrapper {
-  padding: 60px 20px;
-  background-color: #fcfdfc;
-  min-height: 80vh;
+.btn-primary {
+  padding: 15px 35px;
+  font-size: 18px;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 50px; /* Rounded pill shape */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
 }
-
-.section-header {
-  text-align: center;
-  margin-bottom: 40px;
-  animation: fadeInUp 0.8s ease-out;
-}
-
-.section-tag {
-  color: #2e7d32;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 13px;
-  display: block;
-}
-
-.page-title {
-  font-size: 36px;
-  color: #1b5e20;
-  margin-top: 10px;
-}
-
-/* --- LAYOUT --- */
 .cart-content {
   display: grid;
   grid-template-columns: 1.5fr 1fr;

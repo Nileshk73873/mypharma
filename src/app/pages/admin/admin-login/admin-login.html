@@ -1,54 +1,38 @@
-<!-- <h2 class="page-title">Admin Login</h2>
+<div class="login-page">
+  <div class="login-card">
 
-<div class="admin-login-box">
-  <input
-    type="text"
-    placeholder="Username"
-    [(ngModel)]="username"
-  />
-
-  <input
-    type="password"
-    placeholder="Password"
-    [(ngModel)]="password"
-  />
-
-  <button (click)="login()">Login</button>
-
-  <p class="error" *ngIf="error">{{ error }}</p>
-</div> -->
-<div class="admin-login-wrapper">
-  <div class="admin-login-card">
-    <div class="admin-header">
-      <div class="admin-icon">🔐</div>
-      <h2 class="page-title">Admin Portal</h2>
-      <p class="admin-subtitle">Please sign in to access management tools</p>
+    <div class="login-header">
+      <h2>🔐 Admin Login</h2>
+      <p>MyPharma Admin Panel</p>
     </div>
 
-    <div class="admin-login-box">
-      <div class="input-group">
-        <label>Username</label>
-        <input
-          type="text"
-          placeholder="Enter admin username"
-          [(ngModel)]="username"
-        />
+    <div class="error-msg" *ngIf="message">{{ message }}</div>
+
+    <div class="login-form">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="email"
+          placeholder="Admin email" class="form-input" />
       </div>
 
-      <div class="input-group">
-        <label>Password</label>
-        <input
-          type="password"
-          placeholder="••••••••"
-          [(ngModel)]="password"
-        />
-      </div>
+      <div class="form-group">
+  <label>Password</label>
+  <div class="input-wrapper">
+    <input
+      [type]="showPassword ? 'text' : 'password'"
+      [(ngModel)]="password"
+      placeholder="Admin password"
+      class="form-input" />
+    <span class="eye-icon" (click)="showPassword = !showPassword">
+      {{ showPassword ? '🙈' : '👁️' }}
+    </span>
+  </div>
+</div>
 
-      <button (click)="login()" class="login-btn">
-        Access Dashboard
+      <button class="login-btn" (click)="login()" [disabled]="isLoading">
+        {{ isLoading ? 'Signing in...' : 'Sign In' }}
       </button>
-
-      <p class="error" *ngIf="error">⚠️ {{ error }}</p>
     </div>
+
   </div>
 </div>
