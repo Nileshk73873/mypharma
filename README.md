@@ -6,11 +6,7 @@ Built as a **DBMS Course Project** using the MEAN stack with MySQL.
 ---
 
 ## 👥 Team Members
-
-> Nileshkumar Kori
-> Varad Jadhav
-> Palak Rathod
-> Suresh Chaudhary
+>Nileshkumar_Kori Varad_Jadhav Palak_Rathod Suresh_Choudhary
 
 ---
 
@@ -38,7 +34,7 @@ Built as a **DBMS Course Project** using the MEAN stack with MySQL.
 - Secure admin login
 - Dashboard with live stats (revenue, orders, low stock)
 - Add, Edit, Delete medicines
-- Manage orders and update status
+- Manage orders and update status (Pending / Processing / Delivered / Cancelled)
 - Low stock & expiry date alerts
 
 ### 🗄️ Database (MySQL)
@@ -78,12 +74,8 @@ mypharma/
 │           ├── medicine.ts
 │           └── cart.ts
 ├── sql codes/
-│   ├── schema.sql         # CREATE TABLE statements
-│   ├── sample_data.sql    # Sample INSERT data
-│   ├── triggers.sql       # DB Triggers
-│   ├── views.sql          # DB Views
-│   ├── procedures.sql     # Stored Procedure
-│   └── queries.sql        # Demo queries
+│   ├── phase1.sql         # Complete DB setup (schema + data + triggers + views + procedure)
+│   └── queries.sql        # Demo queries (JOINs, aggregations, views, procedure test)
 └── README.md
 ```
 
@@ -107,7 +99,7 @@ Make sure these are installed on your laptop:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/mypharma.git
+git clone https://github.com/nileshkumar240197/mypharma.git
 cd mypharma
 ```
 
@@ -117,17 +109,17 @@ cd mypharma
 
 1. Open **MySQL Workbench**
 2. Connect to your local MySQL server
-3. Open and run these files **in order** from the `sql codes/` folder:
+3. Go to **File → Open SQL Script**
+4. Open `sql codes/phase1.sql`
+5. Press **Ctrl + Shift + Enter** to run everything
 
-```
-1. phase1.sql        → contains whole Sql codes
-2.queries.sql         → run to test sql working
-```
-
-To run a file in MySQL Workbench:
-- Go to **File → Open SQL Script**
-- Select the file
-- Press **Ctrl + Shift + Enter** to run all
+This single file will:
+- ✅ Create the `mypharma` database
+- ✅ Create all 5 tables with constraints and indexes
+- ✅ Insert sample data (users, medicines, orders)
+- ✅ Create 2 triggers
+- ✅ Create 3 views
+- ✅ Create the PlaceOrder stored procedure
 
 ---
 
@@ -139,7 +131,7 @@ Open `backend/server.js` and update the MySQL connection with **your** credentia
 const db = mysql.createConnection({
   host:     'localhost',
   user:     'root',
-  password: 'YOUR_MYSQL_PASSWORD',  // ← Change this
+  password: 'YOUR_MYSQL_PASSWORD',  // ← Change this to your password
   database: 'mypharma'
 });
 ```
@@ -168,7 +160,7 @@ MySQL connected successfully ✅
 
 ### Step 5: Hash Sample Passwords
 
-After the backend starts, open your browser and visit:
+After backend starts, open browser and visit:
 
 ```
 http://localhost:3000/seed-passwords
@@ -238,45 +230,45 @@ order_items   (id, order_id, medicine_id, quantity, price_at_time)
 -- Auto-decrements stock when order is placed
 TRIGGER trg_decrement_stock
 
--- Prevents order if stock is insufficient  
+-- Prevents order if stock is insufficient
 TRIGGER trg_check_stock
 ```
 
 ### Views
 ```sql
-SELECT * FROM low_stock_view;      -- Medicines with stock < 10
-SELECT * FROM expiring_soon_view;  -- Medicines expiring in 30 days
-SELECT * FROM order_summary_view;  -- Orders with customer details
+-- Medicines with stock < 10
+SELECT * FROM low_stock_view;
+
+-- Medicines expiring within 30 days
+SELECT * FROM expiring_soon_view;
+
+-- Orders with full customer details
+SELECT * FROM order_summary_view;
 ```
 
-### Stored Procedure
+### Stored Procedure with Transaction
 ```sql
-CALL PlaceOrder(user_id, medicine_id, quantity, price, @order_id, @msg);
-SELECT @order_id, @msg;
+-- Place an order (handles stock check + insert + commit atomically)
+CALL PlaceOrder(1, 2, 1, 45.00, @order_id, @msg);
+SELECT @order_id AS new_order_id, @msg AS message;
 ```
 
----
-
-## ⚠️ Common Issues
-
-**Backend not connecting to MySQL?**
-- Make sure MySQL service is running
-- Check your password in `server.js`
-- Make sure `mypharma` database exists
-
-**`ng serve` not working?**
-- Run `npm install` first
-- Make sure Angular CLI is installed: `npm install -g @angular/cli`
-
-**Medicines not showing?**
-- Make sure backend is running on port 3000
-- Run `sample_data.sql` in MySQL Workbench
-
-**Port already in use?**
-```bash
-# Kill port 3000
-npx kill-port 3000
+### Demo Queries (`queries.sql`)
+```sql
+-- 1. Multi-table JOIN (4 tables): Full order details
+-- 2. Aggregation: Total revenue per customer
+-- 3. Top selling medicines by quantity
+-- 4. Low stock view
+-- 5. Expiring soon view
+-- 6. Order summary view
+-- 7. Stored procedure test
+-- 8. Trigger test (stock before and after)
 ```
+
+To run demo queries:
+1. Open MySQL Workbench
+2. Open `sql codes/queries.sql`
+3. Run each query individually to see results
 
 ---
 
@@ -293,11 +285,37 @@ npx kill-port 3000
 | GET | /api/cart/:user_id | Get user cart |
 | POST | /api/cart | Add to cart |
 | DELETE | /api/cart/clear/:user_id | Clear cart |
+| DELETE | /api/cart/:user_id/:medicine_id | Remove item |
 | POST | /api/orders | Place order |
 | GET | /api/orders | Get all orders (admin) |
 | GET | /api/orders/user/:id | Get user orders |
 | PUT | /api/orders/:id | Update order status |
 | GET | /api/admin/stats | Dashboard stats |
+
+---
+
+## ⚠️ Common Issues
+
+**Backend not connecting to MySQL?**
+- Make sure MySQL service is running
+- Check your password in `backend/server.js`
+- Make sure `mypharma` database was created by running `phase1.sql`
+
+**`ng serve` not working?**
+- Run `npm install` first in root folder
+- Make sure Angular CLI is installed: `npm install -g @angular/cli`
+
+**Medicines not showing?**
+- Make sure backend is running on port 3000
+- Visit `http://localhost:3000/api/medicines` to verify
+
+**Port already in use?**
+```bash
+npx kill-port 3000
+```
+
+**Passwords not working after fresh DB setup?**
+- Visit `http://localhost:3000/seed-passwords` after starting backend
 
 ---
 
